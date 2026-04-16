@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4">📋 Mark Attendance</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <table class="table table-bordered text-center shadow">
+            <thead class="table-dark">
+                <tr>
+                    <th>Student</th>
+                    <th>Roll No</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.roll_no }}</td>
+
+                    <td>
+                        <input type="radio" name="{{ student.id }}" value="Present">
+                    </td>
+
+                    <td>
+                        <input type="radio" name="{{ student.id }}" value="Absent">
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <button class="btn btn-success w-100 mt-3">
+            Save Attendance
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+<div class="col-md-6">
+
+<div class="card shadow">
+    <div class="card-body">
+
+```
+    <h4 class="text-center mb-3">Add Student</h4>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- NAME -->
+        <input type="text" name="name" class="form-control mb-2" placeholder="Student Name" required>
+
+        <!-- ROLL NO -->
+        <input type="text" name="roll_no" class="form-control mb-2" placeholder="Roll Number" required>
+
+        <!-- EMAIL -->
+        <input type="email" name="email" class="form-control mb-2" placeholder="Email" required>
+
+        <!-- COURSE DROPDOWN -->
+        <div class="mb-2">
+            <label>Course</label>
+            <select name="course" class="form-control">
+                <option value="">Select Course</option>
+
+                {% for c in courses %}
+                    <option value="{{ c.id }}">{{ c.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- IMAGE -->
+        <input type="file" name="image" class="form-control mb-3">
+
+        <!-- BUTTON -->
+        <button type="submit" class="btn btn-success w-100">
+            Save Student
+        </button>
+
+    </form>
+
+</div>
+```
+
+</div>
+
+</div>
+</div>
+
+{% endblock %}

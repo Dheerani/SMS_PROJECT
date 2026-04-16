@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3>Courses</h3>
+
+<a href="{% url 'add_course' %}" class="btn btn-primary mb-3">Add Course</a>
+
+<table class="table table-bordered">
+<tr>
+    <th>Name</th>
+    <th>Code</th>
+    <th>Instructor</th>
+</tr>
+
+{% for c in courses %}
+<tr>
+    <td>{{ c.name }}</td>
+    <td>{{ c.code }}</td>
+    <td>{{ c.instructor }}</td>
+</tr>
+{% endfor %}
+</table>
+
+{% endblock %}

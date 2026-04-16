@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3 class="text-center mb-4">📅 Monthly Attendance Report</h3>
+
+    <!-- FILTER -->
+    <form method="GET" class="row mb-4">
+
+        <div class="col-md-4">
+            <select name="month" class="form-control">
+                <option value="">Select Month</option>
+                {% for i in "123456789101112"|make_list %}
+                    <option value="{{ forloop.counter }}">
+                        Month {{ forloop.counter }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <input type="number" name="year" class="form-control" placeholder="Year (2026)">
+        </div>
+
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100">Filter</button>
+        </div>
+
+    </form>
+
+    <!-- TABLE -->
+    <table class="table table-bordered text-center shadow">
+        <thead class="table-dark">
+            <tr>
+                <th>Student</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for a in attendance %}
+            <tr>
+                <td>{{ a.teacher.name }}</td>
+
+                <td>
+                    {% if a.status == "Present" %}
+                        <span class="badge bg-success">Present</span>
+                    {% else %}
+                        <span class="badge bg-danger">Absent</span>
+                    {% endif %}
+                </td>
+
+                <td>{{ a.date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No data for selected month</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3 class="mb-4 text-center">👨‍🏫 Teacher Attendance Report</h3>
+
+    <!-- FILTER -->
+    <form method="GET" class="mb-3">
+        <div class="row">
+            <div class="col-md-6">
+                <select name="teacher" class="form-control">
+                    <option value="">All Teachers</option>
+
+                    {% for t in teachers %}
+                        <option value="{{ t.id }}">{{ t.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">Filter</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- TABLE -->
+    <table class="table table-bordered text-center shadow">
+        <thead class="table-dark">
+            <tr>
+                <th>Teacher</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for a in attendance %}
+            <tr>
+                <td>{{ a.teacher.name }}</td>
+
+                <td>
+                    {% if a.status == "Present" %}
+                        <span class="badge bg-success">Present</span>
+                    {% else %}
+                        <span class="badge bg-danger">Absent</span>
+                    {% endif %}
+                </td>
+
+                <td>{{ a.date }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No attendance records</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

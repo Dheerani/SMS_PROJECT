@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+
+{% comment %} print("TEACHER DASHBOARD LOADED") {% endcomment %}
+
+<div class="container mt-4">
+
+    <!-- HEADER -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold">👨‍🏫 Teacher Dashboard</h2>
+        <p class="text-muted">Overview of all teachers</p>
+    </div>
+
+    <!-- STATS CARDS -->
+    <div class="row mb-4">
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm p-3">
+                <h3 class="text-primary">{{ total_teachers }}</h3>
+                <p>Total Teachers</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm p-3">
+                <h3 class="text-success">Active</h3>
+                <p>Status</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow-sm p-3">
+                <a href="{% url 'add_teacher' %}" class="btn btn-primary">
+                    ➕ Add Teacher
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TEACHER LIST PREVIEW -->
+    <div class="card shadow-sm p-3">
+
+        <h5 class="mb-3">Recent Teachers</h5>
+
+        <div class="row g-3">
+
+            {% for teacher in teachers %}
+
+            <div class="col-md-4">
+
+                <div class="d-flex align-items-center border rounded p-2">
+
+                    <!-- IMAGE -->
+                    <img src="{% if teacher.image %}{{ teacher.image.url }}{% else %}https://i.pravatar.cc/100{% endif %}"
+                         class="rounded-circle me-3"
+                         style="width:50px;height:50px;object-fit:cover;">
+
+                    <!-- INFO -->
+                    <div>
+                        <strong>{{ teacher.name }}</strong><br>
+                        <small class="text-muted">{{ teacher.subject }}</small>
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

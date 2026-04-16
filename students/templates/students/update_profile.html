@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+<div class="col-md-5">
+
+<div class="card shadow p-3 text-center">
+
+    <h4 class="mb-3">Edit Profile</h4>
+
+    <!-- Current Image -->
+    <img src="{{ profile.image.url }}" width="120"
+         class="rounded-circle mb-3"
+         style="object-fit: cover;">
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Username -->
+        <input type="text"
+               name="username"
+               value="{{ request.user.username }}"
+               class="form-control mb-2"
+               placeholder="Username">
+
+        <!-- Email -->
+        <input type="email"
+               name="email"
+               value="{{ request.user.email }}"
+               class="form-control mb-2"
+               placeholder="Email">
+
+        <!-- Image -->
+        <input type="file" name="image" class="form-control mb-3">
+
+        <button class="btn btn-success w-100">Update Profile</button>
+    </form>
+
+</div>
+
+</div>
+</div>
+
+{% endblock %}

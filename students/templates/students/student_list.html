@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-3">All Students</h3>
+
+<div class="row">
+
+<div class="row g-4">
+
+{% for student in students %}
+
+<div class="col-md-4 d-flex">
+
+    <div class="card profile-card text-center w-100 p-3">
+
+        <!-- PROFILE IMAGE -->
+        <div class="profile-img mx-auto">
+            {% if student.image %}
+                <img src="{{ student.image.url }}" alt="Profile">
+            {% else %}
+                <img src="https://i.pravatar.cc/150?img=3" alt="Default">
+            {% endif %}
+        </div>
+
+        <!-- NAME -->
+        <h5 class="mt-3 fw-bold">{{ student.name }}</h5>
+
+        <!-- DETAILS -->
+        <p class="text-muted mb-1">Roll: {{ student.roll_no }}</p>
+        <p class="text-muted mb-3">{{ student.course }}</p>
+
+        <!-- BUTTONS -->
+        <div class="d-flex gap-2 mt-auto">
+            <a href="{% url 'update_student' student.id %}" class="btn btn-outline-primary btn-sm w-50">
+                ✏ Edit
+            </a>
+            <a href="{% url 'delete_student' student.id %}" class="btn btn-outline-danger btn-sm w-50">
+                🗑 Delete
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endblock %}

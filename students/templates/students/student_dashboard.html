@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-4">📊 Dashboard</h2>
+
+<!-- Welcome -->
+<div class="alert alert-info">
+    Welcome, <strong>{{ user.username }}</strong> 👋
+</div>
+
+<!-- Stats -->
+<div class="row">
+
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body text-center">
+                <h5>Total Students</h5>
+                <h2>{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-success mb-3 text-center">
+            <div class="card-body">
+                <h5>Add Student</h5>
+                <a href="{% url 'add_student' %}" class="btn btn-light mt-2">Add</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-dark mb-3 text-center">
+            <div class="card-body">
+                <h5>View Students</h5>
+                <a href="{% url 'student_list' %}" class="btn btn-light mt-2">View</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Chart -->
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>Students Overview</h5>
+        <canvas id="studentChart"></canvas>
+    </div>
+</div>
+
+<!-- Recent Students -->
+<div class="card">
+    <div class="card-body">
+        <h5>Recent Students</h5>
+
+        <table class="table table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+            </tr>
+
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.course }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+<!-- Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('studentChart');
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Students'],
+            datasets: [{
+                label: 'Total',
+                data: [{{ total_students }}],
+                borderWidth: 1
+            }]
+        }
+    });
+</script>
+
+{% endblock %}

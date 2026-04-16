@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Profile{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+
+    <div class="col-md-6">
+
+        <div class="card text-center p-4">
+
+            <!-- Image -->
+            {% if student.image %}
+                <img src="{{ student.image.url }}" class="rounded-circle mx-auto mb-3" width="140" height="140">
+            {% else %}
+                <img src="https://via.placeholder.com/140" class="rounded-circle mx-auto mb-3">
+            {% endif %}
+
+            <h3>{{ student.name }}</h3>
+
+            <hr>
+
+            <p><strong>📧 Email:</strong> {{ student.email }}</p>
+            <p><strong>🎓 Course:</strong> {{ student.course }}</p>
+            <p><strong># Roll No:</strong> {{ student.roll_no }}</p>
+
+            <div class="mt-3">
+
+                <a href="{% url 'update_student' student.id %}" class="btn btn-warning">
+                    ✏️ Edit
+                </a>
+
+                <a href="{% url 'delete_student' student.id %}" class="btn btn-danger"
+                   onclick="return confirm('Delete this student?')">
+                    🗑 Delete
+                </a>
+
+                <a href="{% url 'student_list' %}" class="btn btn-secondary">
+                    🔙 Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
