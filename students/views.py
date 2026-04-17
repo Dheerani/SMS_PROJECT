@@ -12,6 +12,33 @@ from django.db import transaction
 
 from datetime import datetime
 
+
+from .models import Student, StudentAttendance
+
+@login_required
+def student_result(request, student_id):
+    student = get_object_or_404(Student, id=student_id)
+
+    attendance = StudentAttendance.objects.filter(student=student)
+
+    total = attendance.count()
+    present = attendance.filter(status='Present').count()
+    absent = attendance.filter(status='Absent').count()
+
+    percentage = (present / total * 100) if total > 0 else 0
+
+    context = {
+        'student': student,
+        'total': total,
+        'present': present,
+        'absent': absent,
+        'percentage': round(percentage, 2),
+    }
+
+    return render(request, 'students/student_result.html', context)
+
+
+
 #monthly report
 @login_required
 def monthly_student_report(request):

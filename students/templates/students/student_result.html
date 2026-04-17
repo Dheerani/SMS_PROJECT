@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="card shadow p-4 text-center">
+
+        <h3>📋 Attendance Result Card</h3>
+        <hr>
+
+        <!-- Student Image -->
+        {% if student.image %}
+            <img src="{{ student.image.url }}" width="100" class="rounded-circle mb-3">
+        {% endif %}
+
+        <h4>{{ student.name }}</h4>
+        <p><strong>Roll No:</strong> {{ student.roll_no }}</p>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Course:</strong> {{ student.course }}</p>
+
+        <hr>
+
+        <p><strong>Total Classes:</strong> {{ total }}</p>
+        <p><strong>Present:</strong> {{ present }}</p>
+        <p><strong>Absent:</strong> {{ absent }}</p>
+        <p><strong>Attendance %:</strong> {{ percentage }}%</p>
+
+        {% if percentage >= 75 %}
+            <h5 class="text-success">Status: PASS ✅</h5>
+        {% else %}
+            <h5 class="text-danger">Status: FAIL ❌</h5>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

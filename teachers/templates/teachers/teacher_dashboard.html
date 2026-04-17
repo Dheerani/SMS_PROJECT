@@ -1,10 +1,9 @@
+```html id="dash123"
 {% extends 'base.html' %}
 
 {% block title %}Teacher Dashboard{% endblock %}
 
 {% block content %}
-
-{% comment %} print("TEACHER DASHBOARD LOADED") {% endcomment %}
 
 <div class="container mt-4">
 
@@ -15,24 +14,24 @@
     </div>
 
     <!-- STATS CARDS -->
-    <div class="row mb-4">
+    <div class="row mb-4 g-3">
 
         <div class="col-md-4">
-            <div class="card text-center shadow-sm p-3">
-                <h3 class="text-primary">{{ total_teachers }}</h3>
-                <p>Total Teachers</p>
+            <div class="card text-center shadow-sm p-3 border-0">
+                <h3 class="text-primary fw-bold">{{ total_teachers }}</h3>
+                <p class="mb-0 text-muted">Total Teachers</p>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card text-center shadow-sm p-3">
-                <h3 class="text-success">Active</h3>
-                <p>Status</p>
+            <div class="card text-center shadow-sm p-3 border-0">
+                <h3 class="text-success fw-bold">Active</h3>
+                <p class="mb-0 text-muted">Status</p>
             </div>
         </div>
 
         <div class="col-md-4">
-            <div class="card text-center shadow-sm p-3">
+            <div class="card text-center shadow-sm p-3 border-0">
                 <a href="{% url 'add_teacher' %}" class="btn btn-primary">
                     ➕ Add Teacher
                 </a>
@@ -42,9 +41,9 @@
     </div>
 
     <!-- TEACHER LIST PREVIEW -->
-    <div class="card shadow-sm p-3">
+    <div class="card shadow-sm border-0 p-3">
 
-        <h5 class="mb-3">Recent Teachers</h5>
+        <h5 class="mb-3 fw-bold">Recent Teachers</h5>
 
         <div class="row g-3">
 
@@ -52,7 +51,7 @@
 
             <div class="col-md-4">
 
-                <div class="d-flex align-items-center border rounded p-2">
+                <div class="d-flex align-items-center border rounded p-2 bg-light">
 
                     <!-- IMAGE -->
                     <img src="{% if teacher.image %}{{ teacher.image.url }}{% else %}https://i.pravatar.cc/100{% endif %}"
@@ -61,8 +60,21 @@
 
                     <!-- INFO -->
                     <div>
-                        <strong>{{ teacher.name }}</strong><br>
-                        <small class="text-muted">{{ teacher.subject }}</small>
+
+                        <!-- CLICKABLE NAME -->
+                        <a href="{% url 'teacher_profile' teacher.id %}"
+                           class="text-decoration-none fw-bold text-primary">
+
+                            {{ teacher.name }}
+
+                        </a>
+
+                        <br>
+
+                        <small class="text-muted">
+                            {{ teacher.subject }}
+                        </small>
+
                     </div>
 
                 </div>
@@ -78,3 +90,4 @@
 </div>
 
 {% endblock %}
+```

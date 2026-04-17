@@ -5,6 +5,31 @@ from django.contrib.auth.decorators import login_required
 
 from .models import TeacherAttendance
 
+
+@login_required
+def teacher_result(request, teacher_id):
+    teacher = get_object_or_404(Teacher, id=teacher_id)
+
+    attendance = TeacherAttendance.objects.filter(teacher=teacher)
+
+    total = attendance.count()
+    present = attendance.filter(status="Present").count()
+    absent = attendance.filter(status="Absent").count()
+
+    percentage = (present / total * 100) if total > 0 else 0
+
+    context = {
+        'teacher': teacher,
+        'total': total,
+        'present': present,
+        'absent': absent,
+        'percentage': round(percentage, 2)
+    }
+
+    return render(request, 'teachers/teacher_result.html', context)
+
+
+
 @login_required
 def monthly_teacher_report(request):
     month = request.GET.get('month')
@@ -79,7 +104,24 @@ def edit_teacher(request, id):
 
 def teacher_profile(request, id):
     teacher = get_object_or_404(Teacher, id=id)
-    return render(request, 'teachers/teacher_profile.html', {'teacher': teacher})
+
+    attendance = TeacherAttendance.objects.filter(teacher=teacher)
+
+    total = attendance.count()
+    present = attendance.filter(status="Present").count()
+    absent = attendance.filter(status="Absent").count()
+
+    percentage = (present / total * 100) if total > 0 else 0
+
+    context = {
+        'teacher': teacher,
+        'total': total,
+        'present': present,
+        'absent': absent,
+        'percentage': round(percentage, 2)
+    }
+
+    return render(request, 'teachers/teacher_profile.html', context)
 
 
 
