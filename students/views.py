@@ -6,14 +6,27 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from courses.models import Course
-
-
 from django.db import transaction
-
 from datetime import datetime
-
-
 from .models import Student, StudentAttendance
+from teachers.models import Teacher
+
+@login_required
+def global_search(request):
+    query = request.GET.get('q')
+
+    students = []
+    teachers = []
+
+    if query:
+        students = Student.objects.filter(name__icontains=query)
+        teachers = Teacher.objects.filter(name__icontains=query)
+
+    return render(request, 'students/search_results.html', {
+        'query': query,
+        'students': students,
+        'teachers': teachers
+    })
 
 @login_required
 def student_result(request, student_id):
@@ -185,16 +198,12 @@ def register(request):
     return render(request, 'students/register.html')
 
 
-# =========================
-# HOME
-# =========================
+
 def home(request):
     return render(request, 'students/home.html')
 
 
-# =========================
-# STUDENT LIST (FIXED SEARCH)
-# =========================
+
 @login_required
 def student_list(request):
     query = request.GET.get('q')

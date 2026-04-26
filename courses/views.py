@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,  get_object_or_404 
 from .models import Course
 
 def course_list(request):
@@ -16,3 +16,10 @@ def add_course(request):
         return redirect('course_list')
 
     return render(request, 'courses/add_course.html')
+
+
+def course_detail(request, id):
+    course = Course.objects.get(id=id)
+    return render(request, 'courses/course_detail.html', {
+        'course': course
+    })

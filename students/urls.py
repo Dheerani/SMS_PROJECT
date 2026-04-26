@@ -20,5 +20,7 @@ urlpatterns = [
     path('attendance/report/', views.attendance_report, name='attendance_report'),
     path('attendance/student/monthly/', views.monthly_student_report, name='monthly_student_report'),
     path('student/result/<int:student_id>/', views.student_result, name='student_result'),
+    
+    path('search/', views.global_search, name='global_search'),
 ]
 

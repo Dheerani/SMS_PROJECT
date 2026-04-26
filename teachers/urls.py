@@ -12,4 +12,4 @@ urlpatterns = [
     path('attendance/teacher/report/', views.teacher_attendance_report, name='teacher_attendance_report'),
     path('attendance/teacher/monthly/', views.monthly_teacher_report, name='monthly_teacher_report'),
     path('teacher/result/<int:teacher_id>/', views.teacher_result, name='teacher_result'),
-]   
+    path('teacher/profile/<int:id>/', views.teacher_profile, name='teacher_profile')]   

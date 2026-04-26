@@ -10,14 +10,18 @@
 <tr>
     <th>Name</th>
     <th>Code</th>
-    <th>Instructor</th>
+    {% comment %} <th>Instructor</th> {% endcomment %}
 </tr>
 
 {% for c in courses %}
 <tr>
-    <td>{{ c.name }}</td>
+    <td>
+        <a href="{% url 'course_detail' c.id %}" class="text-decoration-none fw-semibold">
+            {{ c.name }}
+        </a>
+    </td>
     <td>{{ c.code }}</td>
-    <td>{{ c.instructor }}</td>
+    {% comment %} <td>{{ c.instructor }}</td> {% endcomment %}
 </tr>
 {% endfor %}
 </table>

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Course Detail{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-0 rounded-3 p-4">
+
+        <!-- HEADER -->
+        <h3 class="mb-3">📘 Course Detail</h3>
+        <hr>
+
+        <!-- COURSE INFO -->
+        <h4 class="fw-bold text-primary">
+            {{ course.name }}
+        </h4>
+
+        <p class="text-muted mb-1">
+            <strong>Code:</strong> {{ course.code }}
+        </p>
+
+        <hr>
+
+<!-- INSTRUCTOR -->
+<p>
+    <strong>Instructor:</strong>
+
+    {% if course.instructor %}
+    <span class="fw-semibold">
+        👨‍🏫 {{ course.instructor }}
+    </span>
+    {% else %}
+        <span class="text-muted">Not Assigned</span>
+    {% endif %}
+</p>
+
+        <hr>
+
+        <!-- OPTIONAL EXTRA INFO (if you have it) -->
+        {% if course.description %}
+            <p>
+                <strong>Description:</strong><br>
+                {{ course.description }}
+            </p>
+            <hr>
+        {% endif %}
+
+        <!-- BUTTONS -->
+        <a href="{% url 'course_list' %}" class="btn btn-secondary btn-sm">
+            ← Back
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}

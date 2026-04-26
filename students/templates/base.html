@@ -119,17 +119,21 @@
         <div class="collapse navbar-collapse" id="navMenu">
 
             <!-- SEARCH -->
-            <form class="d-flex ms-3 me-auto align-items-center" method="GET" action="{% url 'student_list' %}">
-                <div class="input-group input-group-sm">
-                    <input class="form-control search-input"
-                           type="search"
-                           name="q"
-                           placeholder="Search students...">
-                    <button class="btn btn-outline-secondary">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </form>
+        <form class="d-flex ms-3 me-auto align-items-center"
+            method="GET"
+            action="{% url 'global_search' %}">
+
+            <div class="input-group input-group-sm">
+                <input class="form-control search-input"
+                    type="search"
+                    name="q"
+                    placeholder="Search...">
+
+                <button class="btn btn-outline-secondary">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
 
             <ul class="navbar-nav ms-auto align-items-center gap-2 flex-nowrap">
 

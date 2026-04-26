@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Teacher
 from .forms import TeacherForm
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 from .models import TeacherAttendance
 
 
@@ -67,6 +67,7 @@ def teacher_attendance_report(request):
 @login_required
 def teacher_list(request):
     teachers = Teacher.objects.all()
+    print("Teachers:", teachers)  # debug in terminal
     return render(request, 'teachers/teacher_list.html', {'teachers': teachers})
 
 
@@ -113,16 +114,13 @@ def teacher_profile(request, id):
 
     percentage = (present / total * 100) if total > 0 else 0
 
-    context = {
-        'teacher': teacher,
+    return render(request, 'teachers/teacher_profile.html', {
+        'teacher': teacher,   # ✔ MUST be single object
         'total': total,
         'present': present,
         'absent': absent,
         'percentage': round(percentage, 2)
-    }
-
-    return render(request, 'teachers/teacher_profile.html', context)
-
+    })
 
 
 @login_required
@@ -140,6 +138,8 @@ def teacher_dashboard(request):
 
 from .models import Teacher, TeacherAttendance
 
+
+@login_required
 def teacher_attendance(request):
     teachers = Teacher.objects.all()
 
@@ -162,3 +162,9 @@ def teacher_attendance(request):
     return render(request, "teachers/teacher_attendance.html", {
         "teachers": teachers
     })
+    
+
+
+
+    
+
